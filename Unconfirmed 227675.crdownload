@@ -1,0 +1,215 @@
+#!/usr/bin/env python
+# coding: utf-8
+
+# <font color='red'><h1> Phillemon <h1></font>
+# 
+
+# <h1> How to : Web Scaping  <h1>
+
+# <h2> Using beautiful soup for web scraping <h2>
+
+# * Html and html5 skills
+# * Basic Python 
+
+# ### Website example
+
+# ![Capture.PNG](attachment:Capture.PNG)
+
+# ### Inspec website
+
+# ![Screenshot%202022-05-17%20142846.png](attachment:Screenshot%202022-05-17%20142846.png)
+
+# ### Palying with link on the website
+
+# [<h1>click me, I will take you to the site <h1>](https://tympanus.net/Tutorials/StickyTableHeaders/)
+
+# ## Using Beautiful soup Library
+
+# * You need a URL 
+# * request.get to extract the data in text
+# * html5lib parser
+# * BeautifulSoup library
+
+# [BeautifulSoup Documentation](https://www.crummy.com/software/BeautifulSoup/bs4/doc/)
+
+# ## <r>
+
+# <font color='brown'><h1> Using beautifulSoup <h1></font>
+
+# #### Importing Libraries
+
+# In[224]:
+
+
+import requests as req
+from bs4 import BeautifulSoup
+import pandas as pd
+import numpy as np
+
+
+# #### URL and get request
+
+# In[225]:
+
+
+url = "https://tympanus.net/Tutorials/StickyTableHeaders/"
+html_data =requests.get(url).text
+
+
+# In[250]:
+
+
+html_data
+
+
+# In[271]:
+
+
+html_data.find('head')
+
+
+# In[273]:
+
+
+html_data.find('51')
+
+
+# #### Parse the Html data using beautifulsoup
+
+# In[263]:
+
+
+soup = BeautifulSoup(html_data,"html")
+
+
+# In[264]:
+
+
+soup
+
+
+# In[265]:
+
+
+type(soup)
+
+
+# In[267]:
+
+
+soup.find('head')
+
+
+# In[274]:
+
+
+soup = BeautifulSoup(html_data, 'html5lib')
+
+
+# In[275]:
+
+
+soup
+
+
+# In[233]:
+
+
+find_all_tbody = soup.find_all('tbody')
+
+
+# In[234]:
+
+
+find_all_tbody
+
+
+# In[235]:
+
+
+tr =soup.find_all('tbody')[0].find_all('tr')
+tr
+
+
+# In[236]:
+
+
+tr[0]
+
+
+# In[237]:
+
+
+td =tr[0].find_all("td")
+td
+
+
+# In[238]:
+
+
+td[0].text
+
+
+#  <font color='red'><h1> Begin Coding <h1></font>
+
+# #### Initialising a dataframe with the columns of interest
+
+# In[239]:
+
+
+# using a list of columns or even a dictionery with velues (0) will do
+
+#coumns =['name', 'email''phone', 'mobile']
+
+
+# In[240]:
+
+
+data = pd.DataFrame(columns={'name':0, 'email':0,'phone':0, 'mobile':0})
+
+
+# In[241]:
+
+
+data
+
+
+# 
+# 
+# #### A for loop iterating through out the "extract_from_inspect"
+
+# In[242]:
+
+
+for i in soup.find_all('tbody')[0].find_all('tr'):
+    
+    col = i.find_all("td")
+    
+    name = col[0].text
+    
+    email = col[1].text
+    
+    phone = col[2].text
+    
+    mobile = col[3].text
+    
+    data = data.append({'name':name,'email':email,'phone':phone,'mobile':mobile},ignore_index=True)
+
+
+# In[243]:
+
+
+data
+
+
+# In[248]:
+
+
+data[data['email']=='eric.bell16@example.com']
+
+
+# In[ ]:
+
+
+
+
