@@ -1,11 +1,11 @@
-# Web-Scrapping
+# Web-Scraping
 Using Beautiful Soup to extract data (Single and Multiple tables)
 
 Html and html5 skills
 Basic Python
 
 
-Using Beautiful soup Library
+# Using Beautiful soup Library
 You need a URL
 request.get to extract the data in text
 html5lib parser
@@ -14,7 +14,8 @@ BeautifulSoup library
 
 
 
-Example of a HTML head:
+### Example of a HTML head:
+
 
 <head>
 <meta charset="utf-8"/>
